@@ -26,3 +26,21 @@ Ctrl+k 删除从光标所在位置到行末
 |[c1-c2]	|匹配 c1-c2 中的任意单一字符 如：[0-9] [a-z]|
 |{string1,string2,...}	|匹配 string1 或 string2 (或更多)其一字符串|
 |{c1..c2}	|匹配 c1-c2 中全部字符 如{1..10}|
+
+4)学会在命令行中获取帮助
+man 命令 
+man <command_name>
+man man
+man 1 ls 
+搜索
+/<你要搜索的内容>
+搜索结果 用 n 切换
+shift + n 为上一个关键词所在 Space 即空格键 翻页 Enter向下滚动一行，k,j(vim编辑器的移动键)向前向后滚动。
+h 键显示帮助 q 退出
+
+info命令详细帮助 --help 快速查看具体参数的作用
+
+sudo apt-get update
+sudo apt-get install sysvbanner
+sudo apt-get install toilet
+sudo apt-get install figlet
