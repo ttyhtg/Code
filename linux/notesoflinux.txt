@@ -137,6 +137,7 @@ cd ../../usr/local/bin 相对目录
 touch 创建空白文件
 mkdir 创建空白目录
 mkdir -p father/son/grandson #创建多级目录
+touch {1..10}.txt  批量创建文件
 2、复制文件
 cp test father/son/grandson
 复制目录：需要加上 -r 或 -R 表示递归复制，株连九族
@@ -173,4 +174,19 @@ nl 常用的几个参数
     -n rn:在行号字段最右边显示，且不加 0
     -n rz:在行号字段最右边显示，且加 0
 -w : 行号字段占用的位数(默认为 6 位)
+使用more less 命令分页查看文件
+more passwd：Enter向下滚动一行，Space向下滚动一屏，h 帮助，q退出
+man 手册 vi编辑器
+
+head tail命令查看文件
+默认显示头十行和后几行
+tail /etc/passwd 新用户的信息在最后一行
+tail -n 1 /etc/passwd：只看最后一行
+tail -f 不停读取某个文件的内容 实时监视
+
+6、查看文件类型 
+file /bin/ls
+7、编辑文件
+编辑器：emacs、vim、nano
+vimtutor 直接使用Linux内部的vim学习教程
 
