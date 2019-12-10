@@ -44,3 +44,25 @@ sudo apt-get update
 sudo apt-get install sysvbanner
 sudo apt-get install toilet
 sudo apt-get install figlet
+
+实验3 用户及文件权限管理
+who am i 
+who mam likes
+查看当前用户的用户名 直接 whoami
+who 命令其他常用参数
+
+参数 说明
+-a   打印能打印的全部
+-d   打印死掉的进程
+-m   同am i ,mom likes
+-q   打印当前登录用户数及用户名
+-u   打印当前登录用户登录信息
+-r   打印运行等级
+
+2.1 查看用户
+2.2 创建用户
+root账户拥有整个系统至高无上的权利
+su su- sudo
+su <user> 切换到用户user 
+sudo <cmd> 以特权命令级别运行cmd命令
+su - <user> 也是切换用户，同时环境变量也会跟着改变成目标用户的环境变量
