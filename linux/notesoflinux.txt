@@ -66,3 +66,18 @@ su su- sudo
 su <user> 切换到用户user 
 sudo <cmd> 以特权命令级别运行cmd命令
 su - <user> 也是切换用户，同时环境变量也会跟着改变成目标用户的环境变量
+2.3 用户组
+在 Linux 里面如何知道自己属于哪些用户组呢？
+
+方法一：使用 groups 命令
+ groups shiyanlou
+ 回车结果 冒号之前表示用户，后面表示该用户所属的用户组
+ 
+ 方法二：查看 /etc/group 文件
+  cat /etc/group | sort
+  过滤结果
+  cat /etc/group | grep -E "shiyanlou"
+  /etc/group 文件格式说明
+  /etc/group 的内容包括用户组（Group）、用户组口令、GID 及该用户组所包含的用户（User），每个用户组一条记录。格式如下：
+group_name:password:GID:user_list
+ 使用 usermod 命令可以为用户添加用户组
