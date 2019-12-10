@@ -101,3 +101,69 @@ ls -AsSh
 sudo chown shiyanlou iphone6
 
 3.3 修改文件权限 
+方法一：二进制数字表示
+r2w1x0 1*2**2+1*2**1+1*2**0=7
+方法二：加减赋值操作
+chmod go-rw iphone6
+g = groups o = others u = user +-分别表示增加和去掉相应的权限
+
+四、Linux目录结构 文件基本操作
+每个目录大体内容
+文件的属性
+touch file rm mv 等基本命令
+目录结构
+1、FHS 标准
+sudo apt-get update
+sudo apt-get install tree
+                  可分享的shareable      不可分享的unshareable
+不可变的static   /usr 软件放置处         /etc 配置文件
+                 /opt 第三方软件         /boot 开机及内核文件
+可变动的variable /var/mail 用户邮件信箱 /var/run 程序相关
+                 /var/news 新闻组       /var/lock 文件锁相关
+
+2、目录路径
+ls -a 查看包括隐藏文件在内的所有文件
+- 表示上一次所在目录
+～表示当前用户的home目录
+pwd 获取当前的绝对路径
+cd .. 进入上一级目录
+cd ~ 或 cd /home/<你的用户名> 进入你的home目录
+以home目录为起点 
+cd /usr/local/bin #绝对目录
+cd ../../usr/local/bin 相对目录
+
+三、Linux文件的基本操作
+1、新建
+touch 创建空白文件
+mkdir 创建空白目录
+mkdir -p father/son/grandson #创建多级目录
+2、复制文件
+cp test father/son/grandson
+复制目录：需要加上 -r 或 -R 表示递归复制，株连九族
+cd /home/shiyanlou
+mkdir family
+cp -r father family
+删除文件：rm (remove files or directories)
+rm test
+删除只读权限的文件：rm -f test
+
+删除目录: rm -r family
+
+4、移动文件与文件重命名
+移动文件： mv (move or rename files) mv 源目录文件 目的目录
+mkdir Documents
+touch file1
+mv file1 Documents
+重命名文件： mv 旧的文件名 新的文件名
+mv file1 myfile
+批量重命名： rename 
+rename 's/\.txt/\.c/' *.txt  后缀改为.c结尾
+rename 'y/a-z/A-Z/' *.c  文件名和后缀名改为大写
+
+5、查看文件
+cat 标准输出 正序显示
+tac 标准输出 倒序显示 
+nl 添加行号并打印
+
+
+
