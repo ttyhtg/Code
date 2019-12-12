@@ -264,3 +264,48 @@ $ path=${path%/home/shiyanlou/mybin}
 # 或使用通配符,*表示任意多个任意字符
 $ path=${path%*/mybin}
 $ unset temp  #这是变量删除
+5、如何让环境变量立即生效
+cd /home/shiyanlou
+source .zshrc
+或 . 命令
+$ . ./.zshrc
+注意的第一个点后面的空格
+三、搜索文件
+whereis which find locate
+whereis 简单快速
+whereis who 
+whereis find
+
+locate 快而全
+sudo apt-get update
+sudo apt-get install locate
+locate /etc/sh
+
+locate /usr/share/\*.jpg
+统计数目 加上 -c 
+忽略大小写 -i 
+
+which 小而精
+which man
+
+find 精而细
+最强大 find [path] [option][action]
+sudo find /etc/ -name interfaces
+
+参数    说明
+-atime  最后访问时间
+-ctime  最后修改文件内容的时间
+-mtime  最后修改文件属性的时间
+
+-mtime n: n为数字，表示在n天之前的“一天之内”修改过的文件
+-mtime +n: 列出n天之前（不包含n本身）被修改过的文件件
+-mtime -n:列出n天之内（包含n本身）被修改过的文件
+-newer file:file为一个已存在的文件，列出比file还要新的文件
+$find ~ -mtime 0  #列出home目录，当天（24小时之内）有改动的文件
+$find ~ -newer /home/shiyanlou/Code #列出home目录下比Code文件夹新的文件
+
+四、更多
+amatrix 
+sudo apt-get update;sudo apt-get install cmatrix
+cmatrix -C red  #改变代码颜色
+
