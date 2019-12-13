@@ -309,3 +309,5 @@ amatrix
 sudo apt-get update;sudo apt-get install cmatrix
 cmatrix -C red  #改变代码颜色
 
+Prcatice 6 文件打包与解压缩：zip命令 tar命令 压缩与解压常用组合
+
