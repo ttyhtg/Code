@@ -341,4 +341,16 @@ $ zip -r -1 -q -o shiyanlou_1.zip /home/shiyanlou/Desktop -x ~/*.zip
  $ zip -r -e -o shiyanlou_encryption.zip /home/shiyanlou/Desktop
  为了能够在Windows电脑上顺利解压，需要修正命令
  $ zip -r -l -o shiyanlou.zip /home/shiyanlou/Desktop
+ 
  3.2 使用 unzip 命令解压缩 zip 文件
+将 shiyanlou.zip 解压到当前目录：
+$ unzip shiyanlou.zip
+
+使用安静模式，将文件解压到指定目录：
+$ unzip -q shiyanlou.zip -d ziptest
+
+上述指定目录不存在，将会自动创建。如果你不想解压只想查看压缩包的内容你可以使用 -l 参数：
+$ unzip -l shiyanlou.zip
+
+使用 -O（英文字母，大写 o）参数指定编码类型：
+unzip -O GBK 中文压缩文件.zip
