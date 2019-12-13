@@ -310,4 +310,35 @@ sudo apt-get update;sudo apt-get install cmatrix
 cmatrix -C red  #改变代码颜色
 
 Prcatice 6 文件打包与解压缩：zip命令 tar命令 压缩与解压常用组合
+文件后缀名	说明
+*.zip	zip 程序打包压缩的文件
+*.rar	rar 程序压缩的文件
+*.7z	7zip 程序压缩的文件
+*.tar	tar 程序打包，未压缩的文件
+*.gz	gzip 程序（GNU zip）压缩的文件
+*.xz	xz 程序压缩的文件
+*.bz2	bzip2 程序压缩的文件
+*.tar.gz	tar 打包，gzip 程序压缩的文件
+*.tar.xz	tar 打包，xz 程序压缩的文件
+*tar.bz2	tar 打包，bzip2 程序压缩的文件
+*.tar.7z	tar 打包，7z 程序压缩的文件
+三、实战
+打包文件夹
+$ cd /home/shiyanlou
+$ zip -r -q -o shiyanlou.zip /home/shiyanlou/Desktop
+$ du -h shiyanlou.zip
+$ file shiyanlou.zip
+-r 参数表示递归打包包含子目录的全部内容，-q 参数表示为安静模式，即不向屏幕输出信息，-o，表示输出文件，需在其后紧跟打包输出文件名。后面使用 du 命令查看打包后文件的大小
 
+设置压缩级别为 9 和 1（9 最大，1 最小），重新打包：
+$ zip -r -9 -q -o shiyanlou_9.zip /home/shiyanlou/Desktop -x ~/*.zip
+$ zip -r -1 -q -o shiyanlou_1.zip /home/shiyanlou/Desktop -x ~/*.zip
+ -x 是为了排除我们上一次创建的 zip 文件，否则又会被打包进这一次的压缩文件中，注意：这里只能使用绝对路径，否则不起作用。
+ 用 du 命令分别查看默认压缩级别、最低、最高压缩级别及未压缩的文件的大小
+ $ du -h -d 0 *.zip ~ | sort
+ 
+ 创建加密 zip 包
+ $ zip -r -e -o shiyanlou_encryption.zip /home/shiyanlou/Desktop
+ 为了能够在Windows电脑上顺利解压，需要修正命令
+ $ zip -r -l -o shiyanlou.zip /home/shiyanlou/Desktop
+ 3.2 使用 unzip 命令解压缩 zip 文件
