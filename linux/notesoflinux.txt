@@ -354,3 +354,40 @@ $ unzip -l shiyanlou.zip
 
 使用 -O（英文字母，大写 o）参数指定编码类型：
 unzip -O GBK 中文压缩文件.zip
+
+3.3 tar 打包工具
+创建一个 tar 包：
+$ cd /home/shiyanlou
+$ tar -P -cf shiyanlou.tar /home/shiyanlou/Desktop
+-P 保留绝对路径符，-c 表示创建一个 tar 包文件，-f 用于指定创建的文件名，注意文件名必须紧跟在 -f 参数之后，比如不能写成 tar -fc shiyanlou.tar，可以写成 tar -f shiyanlou.tar -c ~。你还可以加上 -v 参数以可视的的方式输出打包的文件
+
+解包一个文件（-x 参数）到指定路径的已存在目录（-C 参数）
+$ mkdir tardir
+$ tar -xf shiyanlou.tar -C tardir
+
+只查看不解包文件 -t 参数：
+$ tar -tf shiyanlou.tar
+
+保留文件属性（-p 参数）和跟随链接（-h 参数）（符号链接或软链接）
+$ tar -cphf etc.tar /etc
+
+我们只需要在创建 tar 文件的基础上添加 -z 参数，使用 gzip 来压缩文件
+$ tar -czf shiyanlou.tar.gz /home/shiyanlou/Desktop
+
+解压 *.tar.gz 文件
+$ tar -xzf shiyanlou.tar.gz
+
+压缩文件格式	参数
+*.tar.gz	-z
+*.tar.xz	-J
+*tar.bz2	-j
+
+总结常用命令：
+zip：
+打包 ：zip something.zip something （目录请加 -r 参数）
+解包：unzip something.zip
+指定路径：-d 参数
+tar：
+打包：tar -cf something.tar something
+解包：tar -xf something.tar
+指定路径：-C 参数
