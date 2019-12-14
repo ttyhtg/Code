@@ -391,3 +391,15 @@ tar：
 打包：tar -cf something.tar something
 解包：tar -xf something.tar
 指定路径：-C 参数
+
+Practice 7
+1.2 df du mount 命令的使用；磁盘相关知识的学习
+基本操作： 
+df 查看磁盘容量
+df -h 
+使用du命令查看目录的容量
+du  加上-h更易读
+
+-d 查看目录深度
+只看一级目录信息：du -h -d 0 ~
+查看二级目录信息：du -h -d 1 ~
