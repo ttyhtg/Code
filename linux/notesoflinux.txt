@@ -527,3 +527,20 @@ $ sudo apt-get install fortune-zh
 # 此外它还可以结合我们之前的作业讲过的 fortune 命令一起使用
 $ /usr/games/fortune | cowsay -f daemon
 
+实验8 Linux下的帮助命令
+內建命令 外部命令 help man info 使用及区别
+使用type命令来区分 
+1、help命令
+bash
+help ls
+显示错误，因为help适用于显示shell內建命令的简要帮助信息
+ls --help
+man ls
+
+3.info 命令
+info ls
+info工具更完整
+
+实验9 Linux任务计划crontab
+crontab 语法
+
