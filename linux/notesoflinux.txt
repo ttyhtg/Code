@@ -592,7 +592,125 @@ cron 服务监测时间最小单位是分钟，所以 cron 会每分钟去读取
 /etc/cron.monthly，目录下的脚本会每月执行一次，在每月1号的6点52分时运行；
 /etc/cron.weekly，目录下的脚本会每周执行一次，在每周第七天的6点47分时运行；
 系统默认执行时间可以根据需求进行修改。
+挑战：备份日志
+为 shiyanlou 用户添加计划任务
+每天凌晨 3 点的时候定时备份 alternatives.log 到 /home/shiyanlou/tmp/ 目录
+命名格式为 年-月-日，比如今天是2017年4月1日，那么文件名为 2017-04-01
 
+sudo cron -f &
+crontab -e 添加
+0 3 * * * sudo rm /home/shiyanlou/tmp/*
+0 3 * * * sudo cp /var/log/alternatives.log /home/shiyanlou/tmp/$(date +\%Y-\%m-\%d)
 
+实验 10
+命令执行顺序控制与管道
+cut，grep，wc，sort命令的使用
+管道的理解
+2.1 顺序执行多条命令
+之前：
+$ sudo apt-get update
+# 等待——————————然后输入下面的命令
+$ sudo apt-get install some-tool //这里some-tool是指具体的软件包
+# 等待——————————然后输入下面的命令
+$ some-tool
 
+现在：
+$ sudo apt-get update;sudo apt-get install some-tool;some-tool
+# 让它自己运行
 
+2.2 有选择的执行命令
+$ which cowsay>/dev/null && cowsay -f head-in ohch~
+学习过 C 语言的用户应该知道在 C 语言里面&&表示逻辑与，而且还有一个||表示逻辑或，同样 Shell 也有一个||，它们的区别就在于，shell中的这两个符号除了也可用于表示逻辑与和或之外，就是可以实现这里的命令执行顺序的简单控制。||在这里就是与&&相反的控制效果，当上一条命令执行结果为≠0($?≠0)时则执行它后面的命令：
+$ which cowsay>/dev/null || echo "cowsay has not been install, please run 'sudo apt-get install cowsay' to install"
+
+除了上述基本的使用之外，我们还可以结合着&&和||来实现一些操作，比如：
+$ which cowsay>/dev/null && echo "exist" || echo "not exist"
+
+三、管道
+3.1 试用
+查看/etc目录下有哪些文件和目录，使用ls命令来查看：
+$ ls -al /etc
+
+有太多内容，屏幕不能完全显示，这时候可以使用滚动条或快捷键滚动窗口来查看。不过这时候可以使用管道：
+$ ls -al /etc | less
+通过管道将前一个命令(ls)的输出作为下一个命令(less)的输入，然后就可以一行一行地看。
+
+3.2 cut 命令，打印每一行的某一字段
+$ cut /etc/passwd -d ':' -f 1,6
+
+打印/etc/passwd文件中每一行的前N个字符：
+# 前五个（包含第五个）
+$ cut /etc/passwd -c -5
+# 前五个之后的（包含第五个）
+$ cut /etc/passwd -c 5-
+# 第五个
+$ cut /etc/passwd -c 5
+# 2到5之间的（包含第五个）
+$ cut /etc/passwd -c 2-5
+
+3.3 grep 命令，在文本中或 stdin 中查找匹配字符串
+grep命令的一般形式为：
+grep [命令选项]... 用于匹配的表达式 [文件]...
+
+搜索/home/shiyanlou目录下所有包含"shiyanlou"的文本文件，并显示出现在文本中的行号：
+$ grep -rnI "shiyanlou" ~
+-r 参数表示递归搜索子目录中的文件,-n表示打印匹配项行号，-I表示忽略二进制文件。这个操作实际没有多大意义，但可以感受到grep命令的强大与实用。
+
+# 查看环境变量中以"yanlou"结尾的字符串
+$ export | grep ".*yanlou$"
+其中$就表示一行的末尾
+
+3.4 wc 命令，简单小巧的计数工具
+wc 命令用于统计并输出一个文件中行、单词和字节的数目，比如输出/etc/passwd文件的统计信息：
+$ wc /etc/passwd
+
+分别只输出行数、单词数、字节数、字符数和输入文本中最长一行的字节数：
+# 行数
+$ wc -l /etc/passwd
+# 单词数
+$ wc -w /etc/passwd
+# 字节数
+$ wc -c /etc/passwd
+# 字符数
+$ wc -m /etc/passwd
+# 最长行字节数
+$ wc -L /etc/passwd
+
+结合管道来操作一下，下面统计 /etc 下面所有目录数：
+$ ls -dl /etc/*/ | wc -l
+
+3.5 sort 排序命令
+默认为字典排序：
+$ cat /etc/passwd | sort
+
+反转排序：
+$ cat /etc/passwd | sort -r
+
+按特定字段排序：
+$ cat /etc/passwd | sort -t':' -k 3
+上面的-t参数用于指定字段的分隔符，这里是以":"作为分隔符；-k 字段号用于指定对哪一个字段进行排序。这里/etc/passwd文件的第三个字段为数字，默认情况下是以字典序排序的，如果要按照数字排序就要加上-n参数：
+$ cat /etc/passwd | sort -t':' -k 3 -n
+
+3.6 uniq 去重命令
+uniq命令可以用于过滤或者输出重复行。
+过滤重复行
+我们可以使用history命令查看最近执行过的命令（实际为读取${SHELL}_history文件,如我们环境中的~/.zsh_history文件），不过你可能只想查看使用了哪个命令而不需要知道具体干了什么，那么你可能就会要想去掉命令后面的参数然后去掉重复的命令：
+$ history | cut -c 8- | cut -d ' ' -f 1 | uniq
+然后经过层层过滤，你会发现确是只输出了执行的命令那一列，不过去重效果好像不明显，仔细看你会发现它确实去重了，只是不那么明显，之所以不明显是因为uniq命令只能去连续重复的行，不是全文去重，所以要达到预期效果，我们先排序：
+$ history | cut -c 8- | cut -d ' ' -f 1 | sort | uniq
+# 或者$ history | cut -c 8- | cut -d ' ' -f 1 | sort -u
+这就是 Linux/UNIX 哲学吸引人的地方，大繁至简，一个命令只干一件事却能干到最好。
+
+输出重复行
+# 输出重复过的行（重复的只输出一个）及重复次数
+$ history | cut -c 8- | cut -d ' ' -f 1 | sort | uniq -dc
+# 输出所有重复的行
+$ history | cut -c 8- | cut -d ' ' -f 1 | sort | uniq -D
+
+shiyanlou:~/ $ sudo apt update
+shiyanlou:~/ $ sudo apt install -y aview imagemagick 
+shiyanlou:~/ $ wget http://labfile.oss.aliyuncs.com/courses/1/Linus.png
+ asciiview [图片文件名] 即可打开图片
+ 
+ 实验 11  简单的文本处理
+这一节我们将介绍这几个命令tr（注意不是tar），col，join，paste。实际这一节是上一节关于能实现管道操作的命令的延续，所以我们依然将结合管道来熟悉这些命令的使用。
