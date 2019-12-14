@@ -543,4 +543,56 @@ info工具更完整
 
 实验9 Linux任务计划crontab
 crontab 语法
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+
+2.2crontanb准备
+启动rsyslog ，本地已经默认启动
+sudo apt-get install -y rsyslog
+sudo service rsyslog start
+
+sudo cron －f &
+
+2.3 crontab 使用
+crontab -e
+选择第二个基本的 vim 就可以了
+
+详细的格式可以使用上一节中学习到的 man 命令查看:man crontab
+在/home/shiyanlou目录下创建一个以当前的年月日时分秒为名字的空白文件
+*/1 * * * * touch /home/shiyanlou/$(date +\%Y\%m\%d\%H\%M\%S)
+注意 “ % ” 在 crontab 文件中，有结束命令行、换行、重定向的作用，前面加 ” \ ” 符号转义，否则，“ % ” 符号将执行其结束命令行或者换行的作用，并且其后的内容会被做为标准输入发送给前面的命令。
+
+2种方式来确定我们的 cron 是否成功的在后台启动，
+ps aux | grep cron
+
+or
+
+pgrep cron
+
+通过 ll 查看生成了多少
+
+通过这样一个命令可以查看到执行任务命令之后在日志中的信息反馈
+sudo tail -f /var/log/syslog
+
+不需要可删除任务：crontab -r
+三、crontab 的深入
+每个用户使用 crontab -e 添加计划任务，都会在 /var/spool/cron/crontabs 中添加一个该用户自己的任务文档，这样目的是为了隔离。
+如果是系统级别的定时任务，应该如何处理？只需要以 sudo 权限编辑 /etc/crontab 文件就可以。
+cron 服务监测时间最小单位是分钟，所以 cron 会每分钟去读取一次 /etc/crontab 与 /var/spool/cron/crontabs 里面的內容。
+每个目录的作用：
+
+/etc/cron.daily，目录下的脚本会每天执行一次，在每天的6点25分时运行；
+/etc/cron.hourly，目录下的脚本会每个小时执行一次，在每小时的17分钟时运行；
+/etc/cron.monthly，目录下的脚本会每月执行一次，在每月1号的6点52分时运行；
+/etc/cron.weekly，目录下的脚本会每周执行一次，在每周第七天的6点47分时运行；
+系统默认执行时间可以根据需求进行修改。
+
+
+
 
