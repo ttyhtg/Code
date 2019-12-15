@@ -761,10 +761,31 @@ join [option]... file1 file2
 -2      指明第二个文件要用哪个字段来对比，默认对比第一个字段
 
 操作举例：
-cd /home/shiyanlou
-#创建两个文件
-echo '1 hello' > file1
-echo '1 shiyanlou' > file2
-join file1 file2
+$ cd /home/shiyanlou
+# 创建两个文件
+$ echo '1 hello' > file1
+$ echo '1 shiyanlou' > file2
+$ join file1 file2
+# 将/etc/passwd与/etc/shadow两个文件合并，指定以':'作为分隔符
+$ sudo join -t':' /etc/passwd /etc/shadow
+# 将/etc/passwd与/etc/group两个文件合并，指定以':'作为分隔符, 分别比对第4和第3个字段
+$ sudo join -t':' -1 4 /etc/passwd -2 3 /etc/group
+
+2.4 paste命令
+paste这个命令与join 命令类似，它是在不对比数据的情况下，简单地将多个文件合并一起，以Tab隔开。
+使用方式：
+paste [option] file...
+
+常用的选项有：
+选项	说明
+-d	指定合并的分隔符，默认为Tab
+-s	不合并到一行，每个文件为一行
+
+操作举例：
+$ echo hello > file1
+$ echo shiyanlou > file2
+$ echo www.shiyanlou.com > file3
+$ paste -d ':' file1 file2 file3
+$ paste -s file1 file2 file3
 
 
