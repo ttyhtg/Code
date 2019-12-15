@@ -749,3 +749,22 @@ $ cat -A /etc/protocols
 # 使用 col -x 将 /etc/protocols 中的 Tab 转换为空格,然后再使用 cat 查看，你发现 ^I 不见了
 $ cat /etc/protocols | col -x | cat -A
 
+2.3 join
+将两个文件中包含相同内容的那一行合并到一起
+使用方式：
+join [option]... file1 file2
+常用的选项有：
+选项    说明
+-t      指定分隔符，默认为空格
+-i      忽略大小写的差异
+-1      指明第一个文件要用哪个字段来对比，默认对比第一个字段
+-2      指明第二个文件要用哪个字段来对比，默认对比第一个字段
+
+操作举例：
+cd /home/shiyanlou
+#创建两个文件
+echo '1 hello' > file1
+echo '1 shiyanlou' > file2
+join file1 file2
+
+
