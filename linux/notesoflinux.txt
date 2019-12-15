@@ -972,3 +972,74 @@ grep常用参数
 --color=auto	将输出中的匹配项设置为自动颜色显示
 注：在大多数发行版中是默认设置了grep的颜色的，你可以通过参数指定或修改GREP_COLOR环境变量。
 
+3.2 使用正则表达式
+使用基本正则表达式，BRE
+位置
+查找/etc/group文件中以"shiyanlou"为开头的行
+$ grep 'shiyanlou' /etc/group
+$ grep '^shiyanlou' /etc/group
+
+数量
+# 将匹配以'z'开头以'o'结尾的所有字符串
+$ echo 'zero\nzo\nzoo' | grep 'z.*o'
+# 将匹配以'z'开头以'o'结尾，中间包含一个任意字符的字符串
+$ echo 'zero\nzo\nzoo' | grep 'z.o'
+# 将匹配以'z'开头,以任意多个'o'结尾的字符串
+$ echo 'zero\nzo\nzoo' | grep 'zo*'
+
+注意：其中\n为换行符
+
+选择
+# grep默认是区分大小写的，这里将匹配所有的小写字母
+$ echo '1234\nabcd' | grep '[a-z]'
+# 将匹配所有的数字
+$ echo '1234\nabcd' | grep '[0-9]'
+# 将匹配所有的数字
+$ echo '1234\nabcd' | grep '[[:digit:]]'
+# 将匹配所有的小写字母
+$ echo '1234\nabcd' | grep '[[:lower:]]'
+# 将匹配所有的大写字母
+$ echo '1234\nabcd' | grep '[[:upper:]]'
+# 将匹配所有的字母和数字，包括0-9,a-z,A-Z
+$ echo '1234\nabcd' | grep '[[:alnum:]]'
+# 将匹配所有的字母
+$ echo '1234\nabcd' | grep '[[:alpha:]]'
+
+完整的特殊符号及说明：
+特殊符号	说明
+[:alnum:]	代表英文大小写字母及数字，亦即 0-9, A-Z, a-z
+[:alpha:]	代表任何英文大小写字母，亦即 A-Z, a-z
+[:blank:]	代表空白键与 [Tab] 按键两者
+[:cntrl:]	代表键盘上面的控制按键，亦即包括 CR, LF, Tab, Del.. 等等
+[:digit:]	代表数字而已，亦即 0-9
+[:graph:]	除了空白字节 (空白键与 [Tab] 按键) 外的其他所有按键
+[:lower:]	代表小写字母，亦即 a-z
+[:print:]	代表任何可以被列印出来的字符
+[:punct:]	代表标点符号 (punctuation symbol)，亦即：" ' ? ! ; : # $...
+[:upper:]	代表大写字母，亦即 A-Z
+[:space:]	任何会产生空白的字符，包括空白键, [Tab], CR 等等
+[:xdigit:]	代表 16 进位的数字类型，因此包括： 0-9, A-F, a-f 的数字与字节
+注意：之所以要使用特殊符号，是因为上面的[a-z]不是在所有情况下都管用，这还与主机当前的语系有关，即设置在LANG环境变量的值，zh_CN.UTF-8的话[a-z]，即为所有小写字母，其它语系可能是大小写交替的如，"a A b B...z Z"，[a-z]中就可能包含大写字母。所以在使用[a-z]时请确保当前语系的影响，使用[:lower:]则不会有这个问题。
+
+# 排除字符
+$ $ echo 'geek\ngood' | grep '[^o]'
+注意:当^放到中括号内为排除字符，否则表示行首。
+
+使用扩展正则表达式，ERE
+要通过grep使用扩展正则表达式需要加上-E参数，或使用egrep。
+数量
+# 只匹配"zo"
+$ echo 'zero\nzo\nzoo' | grep -E 'zo{1}'
+# 匹配以"zo"开头的所有单词
+$ echo 'zero\nzo\nzoo' | grep -E 'zo{1,}'
+注意：推荐掌握{n,m}即可，+,?,*，这几个不太直观，且容易弄混淆。
+
+选择
+# 匹配"www.shiyanlou.com"和"www.google.com"
+$ echo 'www.shiyanlou.com\nwww.baidu.com\nwww.google.com' | grep -E 'www\.(shiyanlou|google)\.com'
+# 或者匹配不包含"baidu"的内容
+$ echo 'www.shiyanlou.com\nwww.baidu.com\nwww.google.com' | grep -Ev 'www\.baidu\.com'
+注意：因为.号有特殊含义，所以需要转义。
+
+
+
