@@ -53,4 +53,14 @@ $  vi regular_express.txt
 # grep -n '[[:digit:]]' regular_express.txt 
 
  2.3 语系对正则表达式的影响
+由于不同语系的编码数据不同，所以造成不同语系的数据选取结果有所差异。以英文大小写为例，zh_CN.big5 及 C 这两种语系差异如下：
+
+LANG=C 时： 0 1 2 3 4....ABCDE...Zabcde...z
+LANG=zh_CN 时：0 1 2 3 4...aAbBcCdD.....zZ
+在使用正则表达式[A-Z]时， LANG=C 的情况下，找到的仅仅是大写字符 ABCD..Z。而在 LANG=zh_CN 情况下，会选取到 AbBcCdD.....zZ 字符。因此在使用正则表达式时要特别留意语系。
+
+由于我们一般使用的兼容与 POSIX 的标准，因此使用 C 语系。
+
+实验 2
+grep命令与正则表达式
 
