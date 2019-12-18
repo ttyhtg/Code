@@ -216,5 +216,26 @@ grep -v '^$' regular_express.txt |grep -v '^#'
 延伸行正规表达法可简写为：
 egrep -v '^$|^#' regular_express.txt 
 
+2.2 扩展规则
+2.2.1 +：表示重复一个或一个以上的前一个RE字符
+egrep -n 'go+d' regular_wxpress.txt
+
+普通写法：
+grep -n 'goo*d' regular_express.txt
+
+2.2.2 ?：表示重复零个或一个 前一个RE字符
+egrep -n 'go?d' regular_express.txt
+
+2.2.3 |：表示用或的方式找出数个字符串
+egrep -n 'gd|good' regular_express.txt
+
+2.2.4 ()：表示找出群组字符串
+egrep -n 'g(la|oo)d' regular_express.txt
+也就是搜寻（glad）或good 这两个字符串
+
+2.2.5 ()+：多个重复群组判别：
+echo 'AxyzxyzxyzxyzC' egrep 'A(xyz)+C'
+echo 'AxyzxyzxyzxyzC' egrep 'A(xz)+C'
+
 
 
