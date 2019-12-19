@@ -1174,3 +1174,11 @@ NR	已经读入的记录数
 FNR	当前输入文件的记录数，请注意它与NR的区别
 OFS	输出字段分隔符，默认为" "空格
 ORS	输出记录分隔符，默认为"\n"
+
+实验14 Linux下安装软件
+在线安装；从磁盘安装deb软件包；从二进制软件包安装；从源代码编译安装
+
+sudo apt-get install w3m
+w3m https://www.shiyanlou.com/faq
+
+2.2 
