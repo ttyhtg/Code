@@ -1552,7 +1552,7 @@ copy
 通常我们都会先看 15 分钟的值来看这个大体的趋势，然后再看 5 分钟的值对比来看是否有下降的趋势。
 
 查看 busybox 的代码可以知道，数据是每 5 秒钟就检查一次活跃的进程数，然后计算出该值，然后 load 从 /proc/loadavg 中读取的。而这个 load 的值是如何计算的呢，这是 load 的计算的源码
-
+```
 #define FSHIFT      11          /* nr of bits of precision */
 #define FIXED_1     (1<<FSHIFT) /* 1.0 as fixed-point(定点) */
 #define LOAD_FREQ   (5*HZ)      /* 5 sec intervals，每隔5秒计算一次平均负载值 */
@@ -1582,7 +1582,7 @@ static inline void calc_load(unsigned long ticks)
                 CALC_LOAD(avenrun[2], EXP_15, active_tasks);
         }
 }
-copy
+```
 有兴趣的朋友可以研究一下，是如何计算的。代码中的后面这部分相当于它的计算公式
 
 我们回归正题，来看 top 的第二行数据，基本上第二行是进程的一个情况统计
@@ -1734,14 +1734,14 @@ pstree 可以很直接的看到相同的进程数量，最主要的还是我们�
 
 pstree
 
-'''
+```
 pstree -up
 
 #参数选择：
 #-A  ：各程序树之间以 ASCII 字元來連接；
 #-p  ：同时列出每个 process 的 PID；
 #-u  ：同时列出每个 process 的所屬账户名称。
-'''
+```
 三、进程的管理
 
 3.1 kill 命令的掌握
@@ -1768,7 +1768,7 @@ kill -9 1608
 #这个实验在环境中无法做，因为权限不够，可以自己在本地尝试
 
 #打开一个程序放在后台，或者用图形界面打开
-'''nice -n -5 vim &'''
+```nice -n -5 vim &
 
 #用 ps 查看其优先级
 ps -afxo user,ppid,pid,stat,pri,ni,time,command | grep vim
@@ -1778,4 +1778,4 @@ copy
 renice -5 pid
 
 
-ps aux | grep gedit 
+ps aux | grep gedit ```
