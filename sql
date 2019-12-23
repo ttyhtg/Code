@@ -83,3 +83,12 @@ CREATE TABLE 表的名字
 列名c 数据类型（数据长度）
 ）；
 
+CREATE TABLE employee (id int(10),name char(20),phone int(12));
+
+在创建一张表 department，包含名称和电话信息，想让命令看起来更整洁，可以这样输入命令
+ https://doc.shiyanlou.com/MySQL/sql-02-04.png/wm
+
+ 查看刚才添加的两张表：show tables;  勿忘：
+
+ 3.5 数据类型
+
