@@ -117,5 +117,18 @@ ENUM和SET的区别: ENUM 类型的数据的值，必须是定义时枚举的值
 
 想要了解更多关于 MySQL 数据类型的信息，可以参考下面两篇博客。
 
-MySQL 中的数据类型介绍
-MySQL 数据类型
+MySQL 中的数据类型介绍http://blog.csdn.net/anxpp/article/details/51284106#comments
+MySQL 数据类型 http://www.cnblogs.com/bukudekong/archive/2011/06/27/2091590.html
+
+3.6 插入数据
+使用SELECT * FROM employee; 勿忘； 
+还是空的
+
+通过 INSERT 语句向表中插入数据，语句格式为：
+INSERT INTO 表的名字（列名a，列名b，列名c） VALUES(值1，值2，值3)；
+
+我们尝试向employee中加入Tom Jcak,Rose：
+INSERT INTO employee(id,name,phone) VALUES(01,'Tom',110110110);
+INSERT INTO employee VALUE (02,'Jack',119119119);
+INSERT INTO employee VALUE (id,name) VALUES(03,'Rose');
+
