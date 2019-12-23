@@ -132,3 +132,13 @@ INSERT INTO employee(id,name,phone) VALUES(01,'Tom',110110110);
 INSERT INTO employee VALUE (02,'Jack',119119119);
 INSERT INTO employee VALUE (id,name) VALUES(03,'Rose');
 
+你已经注意到了，有的数据需要用单引号括起来，比如 Tom、Jack、Rose 的名字，
+这是由于它们的数据类型是 CHAR 型。此外 VARCHAR,TEXT,DATE,TIME,ENUM 等
+类型的数据也需要单引号修饰，而 INT,FLOAT,DOUBLE 等则不需要。
+
+第一条语句比第二条语句多了一部分：(id,name,phone) 这个括号里列出的，
+是将要添加的数据 (01,'Tom',110110110) 其中每个值在表中对应的列。
+而第三条语句只添加了 (id,name) 两列的数据，所以在表中Rose的phone为NULL。
+
+现在我们再次使用语句 SELECT * FROM employee; 查看 employee 表，
+可见 Tom 和 Jack 的相关数据已经保存在其中了：
