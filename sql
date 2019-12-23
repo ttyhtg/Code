@@ -142,3 +142,17 @@ INSERT INTO employee VALUE (id,name) VALUES(03,'Rose');
 
 现在我们再次使用语句 SELECT * FROM employee; 查看 employee 表，
 可见 Tom 和 Jack 的相关数据已经保存在其中了：
+
+参考
+create database library;
+use library;
+
+create table book(
+  book_id int primary key,
+  book_name varchar(50) not null
+);
+
+create table reader(
+  reader_id int primary key,
+  reader_name varchar(50) not null
+);
